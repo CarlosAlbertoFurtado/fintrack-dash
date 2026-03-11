@@ -29,6 +29,7 @@ export default function Dashboard() {
             <h1 className="text-lg font-semibold">FinTrack</h1>
             <p className="text-xs text-zinc-500">Dashboard de finanças pessoais</p>
           </div>
+          {/* TODO: add date range picker here */}
           <div className="text-xs text-zinc-600">
             Março 2026
           </div>
