@@ -1,3 +1,6 @@
+// wrapper around the fintrack api
+// see: https://github.com/CarlosAlbertoFurtado/fintrack-api
+
 const API_URL = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:8000/api'
 
 interface RequestOptions {
@@ -59,6 +62,11 @@ export async function getMonthlyTrend(token: string, months = 6) {
 export async function getBudgets(token: string, month: number, year: number) {
     return request<BudgetResponse>(`/budgets?month=${month}&year=${year}`, { token })
 }
+
+// not using this yet but will need it for the settings page
+// export async function updateProfile(token: string, data: { name?: string }) {
+//     return request('/auth/profile', { method: 'PATCH', body: data, token })
+// }
 
 // types
 export interface AuthResponse {
