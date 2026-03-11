@@ -5,9 +5,9 @@ import { getSummary, getByCategory, getMonthlyTrend, getTransactions } from '@/l
 import type { SummaryResponse, CategoryBreakdown, MonthlyTrend, Transaction } from '@/lib/api'
 
 const DEMO_SUMMARY: SummaryResponse = {
-    total_income: 8450.00,
-    total_expenses: 4280.50,
-    balance: 4169.50,
+    total_income: 8453.27,
+    total_expenses: 4281.60,
+    balance: 4171.67,
 }
 
 const DEMO_CATEGORIES: CategoryBreakdown[] = [
@@ -59,6 +59,7 @@ export function useDashboardData(): DashboardData {
         const token = typeof window !== 'undefined' ? localStorage.getItem('token') : null
         if (!token) return
 
+        console.log('[dashboard] refreshing data...')
         setLoading(true)
 
         const now = new Date()
