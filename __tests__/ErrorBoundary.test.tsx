@@ -2,7 +2,7 @@ import { render, screen } from '@testing-library/react'
 import { describe, it, expect, vi } from 'vitest'
 import { ErrorBoundary } from '@/components/ErrorBoundary'
 
-function BrokenComponent(): JSX.Element {
+function BrokenComponent() {
     throw new Error('test crash')
 }
 
