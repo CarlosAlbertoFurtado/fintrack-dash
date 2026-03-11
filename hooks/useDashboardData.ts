@@ -43,20 +43,17 @@ const DEMO_TRANSACTIONS: Transaction[] = [
 ]
 
 export function useDashboardData() {
-    const [loading, setLoading] = useState(true)
+    const [loading, setLoading] = useState(false)
     const [summary, setSummary] = useState<SummaryResponse>(DEMO_SUMMARY)
     const [categories, setCategories] = useState<CategoryBreakdown[]>(DEMO_CATEGORIES)
     const [trend, setTrend] = useState<MonthlyTrend[]>(DEMO_TREND)
     const [transactions, setTransactions] = useState<Transaction[]>(DEMO_TRANSACTIONS)
 
     useEffect(() => {
-        // try to load from API, fall back to demo data
         const token = typeof window !== 'undefined' ? localStorage.getItem('token') : null
+        if (!token) return
 
-        if (!token) {
-            setLoading(false)
-            return
-        }
+        setLoading(true)
 
         const now = new Date()
         const dateFrom = new Date(now.getFullYear(), now.getMonth(), 1).toISOString()
@@ -72,7 +69,8 @@ export function useDashboardData() {
             setCategories(c)
             setTrend(t)
             setTransactions(tx)
-        }).finally(() => setLoading(false))
+            setLoading(false)
+        })
     }, [])
 
     return { loading, summary, categories, trend, transactions }
