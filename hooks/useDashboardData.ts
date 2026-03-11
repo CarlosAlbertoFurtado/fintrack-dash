@@ -1,11 +1,8 @@
 'use client'
 
-import { useState, useEffect } from 'react'
+import { useState, useCallback } from 'react'
 import { getSummary, getByCategory, getMonthlyTrend, getTransactions } from '@/lib/api'
 import type { SummaryResponse, CategoryBreakdown, MonthlyTrend, Transaction } from '@/lib/api'
-
-// hardcoded demo data — in production this would come from the API
-// using static data so the dashboard works without a running backend
 
 const DEMO_SUMMARY: SummaryResponse = {
     total_income: 8450.00,
@@ -42,14 +39,23 @@ const DEMO_TRANSACTIONS: Transaction[] = [
     { id: '8', description: 'Curso Udemy', amount: 27.90, type: 'EXPENSE', category_id: 'cat-educacao', date: '2026-03-07T00:00:00', notes: null, is_recurring: false, created_at: '2026-03-07' },
 ]
 
-export function useDashboardData() {
+interface DashboardData {
+    loading: boolean
+    summary: SummaryResponse
+    categories: CategoryBreakdown[]
+    trend: MonthlyTrend[]
+    transactions: Transaction[]
+    refresh: () => void
+}
+
+export function useDashboardData(): DashboardData {
     const [loading, setLoading] = useState(false)
     const [summary, setSummary] = useState<SummaryResponse>(DEMO_SUMMARY)
     const [categories, setCategories] = useState<CategoryBreakdown[]>(DEMO_CATEGORIES)
     const [trend, setTrend] = useState<MonthlyTrend[]>(DEMO_TREND)
     const [transactions, setTransactions] = useState<Transaction[]>(DEMO_TRANSACTIONS)
 
-    useEffect(() => {
+    const refresh = useCallback(() => {
         const token = typeof window !== 'undefined' ? localStorage.getItem('token') : null
         if (!token) return
 
@@ -73,5 +79,5 @@ export function useDashboardData() {
         })
     }, [])
 
-    return { loading, summary, categories, trend, transactions }
+    return { loading, summary, categories, trend, transactions, refresh }
 }
