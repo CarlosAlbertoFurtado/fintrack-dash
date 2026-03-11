@@ -24,7 +24,7 @@ export function TrendChart({ data }: Props) {
                     <Tooltip
                         contentStyle={{ background: '#18181b', border: '1px solid #3f3f46', borderRadius: 8 }}
                         labelStyle={{ color: '#a1a1aa' }}
-                        formatter={(value: number) => `R$ ${value.toLocaleString('pt-BR')}`}
+                        formatter={(value) => `R$ ${Number(value).toLocaleString('pt-BR')}`}
                     />
                     <Legend wrapperStyle={{ fontSize: 12 }} />
                     <Bar dataKey="Receitas" fill="#34d399" radius={[4, 4, 0, 0]} />

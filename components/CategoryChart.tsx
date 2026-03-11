@@ -32,7 +32,7 @@ export function CategoryChart({ data }: Props) {
                         </Pie>
                         <Tooltip
                             contentStyle={{ background: '#18181b', border: '1px solid #3f3f46', borderRadius: 8 }}
-                            formatter={(value: number) => `R$ ${value.toLocaleString('pt-BR')}`}
+                            formatter={(value) => `R$ ${Number(value).toLocaleString('pt-BR')}`}
                         />
                     </PieChart>
                 </ResponsiveContainer>
