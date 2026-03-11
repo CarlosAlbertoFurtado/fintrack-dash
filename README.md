@@ -1,56 +1,65 @@
 # FinTrack Dashboard
 
-![CI](https://github.com/CarlosAlbertoFurtado/fintrack-dash/actions/workflows/ci.yml/badge.svg)
-![Next.js](https://img.shields.io/badge/Next.js-16-black)
-![License](https://img.shields.io/badge/license-MIT-green)
+Frontend for [FinTrack API](https://github.com/CarlosAlbertoFurtado/fintrack-api). Shows your finances in charts and tables so you dont have to stare at raw JSON.
 
-Frontend dashboard for [FinTrack API](https://github.com/CarlosAlbertoFurtado/fintrack-api). Displays income/expense summaries, spending breakdown by category, monthly trends, and recent transactions.
+Built with Next.js 16, React 19, Recharts, and Tailwind.
 
-Built with **Next.js**, **React**, **Recharts**, and **Tailwind CSS**.
-
----
-
-## Quick start
+## Running locally
 
 ```bash
 git clone https://github.com/CarlosAlbertoFurtado/fintrack-dash.git
 cd fintrack-dash
-cp .env.example .env.local
 npm install
 npm run dev
 ```
 
-Open http://localhost:3000
+Goes to http://localhost:3000. Works with demo data out of the box — if the API is running it'll pull real data instead.
 
-## How it works
+## Pages
 
-The dashboard connects to the FinTrack API to fetch financial data. If the API is not running, it falls back to realistic demo data so you can still see the interface.
+- `/` — dashboard with summary cards, income vs expenses chart, category breakdown
+- `/transactions` — table view with filters (all/income/expense)
+- `/login` — auth form (connects to FinTrack API)
+
+## Project structure
 
 ```
-lib/api.ts         → typed API client (fetch wrapper)
-hooks/             → custom React hooks for data loading
-components/        → StatCard, TrendChart, CategoryChart, TransactionList
-app/page.tsx       → main dashboard page
+app/
+├── page.tsx              # dashboard
+├── login/page.tsx        # auth
+└── transactions/page.tsx # table view
+components/
+├── Sidebar.tsx           # navigation
+├── StatCard.tsx          # summary cards
+├── TrendChart.tsx        # bar chart (recharts)
+├── CategoryChart.tsx     # donut chart
+├── TransactionList.tsx   # recent transactions
+├── Skeleton.tsx          # loading states
+└── ErrorBoundary.tsx     # error catching
+hooks/
+└── useDashboardData.ts   # data fetching + demo fallback
+lib/
+└── api.ts                # typed API client for fintrack
 ```
 
-## Tech stack
+## Tests
 
-| What | Why |
-|------|-----|
-| Next.js 16 | App Router, RSC, built-in optimizations |
-| React 19 | Hooks, functional components |
-| Recharts | Simple, composable chart library |
-| Tailwind CSS | Utility-first, dark mode |
-| TypeScript | Type safety across API responses |
+```bash
+npm test
+```
 
-## Known limitations / TODO
+Uses vitest + testing-library. Currently has tests for StatCard and TransactionList.
 
-- [ ] Login page with JWT auth flow
+## What's missing
+
+Stuff I want to add but haven't gotten to yet:
+
+- [ ] Date range picker on dashboard
 - [ ] Budget progress bars
-- [ ] Date range picker for filtering
-- [ ] Responsive sidebar navigation
-- [ ] Dark/light theme toggle
+- [ ] Dark/light toggle (everything is dark mode rn)
+- [ ] Search on transactions page
+- [ ] Better mobile layout — sidebar collapses but content still overflows on small screens
 
-## License
+## Stack
 
-MIT
+Next.js 16 · React 19 · TypeScript · Recharts · Tailwind CSS · Vitest
