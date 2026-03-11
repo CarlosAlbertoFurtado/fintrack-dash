@@ -1,5 +1,7 @@
 # FinTrack Dashboard
 
+**[Live demo →](https://fintrack-dash-five.vercel.app/)**
+
 Frontend for [FinTrack API](https://github.com/CarlosAlbertoFurtado/fintrack-api). Shows your finances in charts and tables so you dont have to stare at raw JSON.
 
 Built with Next.js 16, React 19, Recharts, and Tailwind.
